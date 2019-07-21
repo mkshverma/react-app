@@ -1,0 +1,22 @@
+{
+  "name": "testapp",
+  "version": "1.0.0",
+  "description": "Node React app from stratch",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "react"
+  ],
+  "author": "Mukesh Verma",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0"
+  }
+}

@@ -6,11 +6,19 @@ const app = express()
 const port = 3000
 const api = require('./routes')
 const  bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://127.0.0.1:27017/blog-app',{useNewUrlParser: true})
+.catch(error => {
+    console.log(error);
+});
+mongoose.connection.on('error', err => {
+    console.log(err);
+});
 app.use(helmet())
 app.use(compression())
 // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())

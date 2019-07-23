@@ -5,8 +5,8 @@ const UserContoller = {
         const offset = req.query.offset || 0;
         Users.find({}).limit(limit).skip(offset).exec(function(err, users){
             if(err) res.status(200).json({status: false, error: err, message: 'Something went wrong'});
-            if(!users) res.status(200).json({status: false, message: 'No records found!'});
-            res.status(200).json({status: true, users: users});
+            if(!users.length) res.status(200).json({status: false, message: 'No records found!'});
+            if(!res.headersSent) res.status(200).json({status: true, users: users});
         });
     },
     addUser: function(req, res){

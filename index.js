@@ -7,8 +7,9 @@ const port = 3000
 const api = require('./routes')
 const  bodyParser = require('body-parser')
 const mongoose = require('mongoose');
+const config = require('./config')
 
-mongoose.connect('mongodb://127.0.0.1:27017/blog-app',{useNewUrlParser: true})
+mongoose.connect(config.mongoUrl,{useNewUrlParser: true})
 .catch(error => {
     console.log(error);
 });
@@ -49,4 +50,4 @@ app.use(function (err, req, res, next) {
     return res.status(500).json({ message: err.message });
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(config.port, () => console.log(`Example app listening on port ${config.port}!`))

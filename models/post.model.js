@@ -1,15 +1,32 @@
-var postSchema = new mongoose.Schema({
+const mongoose = require('mongoose')
+const slugify = require('slugify')
+const postSchema = new mongoose.Schema({
     title:  String,
-    author: String,
-    body:   String,
-    comments: [{ body: String, date: Date }],
+    slug : String,
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    body: String,
+    tags: [ String ],
+    comments: [{
+      body: String,
+      date: Date,
+      user_id:  {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+      }
+    }],
     date: { type: Date, default: Date.now },
-    hidden: Boolean,
-    meta: {
-      votes: Number,
-      favs:  Number
-    }
+    hidden: Boolean
   });
 
+  postSchema.methods.generateSlug = function() { 
+    this.slug = slugify(this.title, {
+      replacement: '-',    // replace spaces with replacement
+      remove: null,        // regex to remove characters
+      lower: true          // result in lower case
+    })
+};
   const Post = mongoose.model('Post', postSchema);
   module.exports = Post;

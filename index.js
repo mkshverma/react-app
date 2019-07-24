@@ -3,51 +3,60 @@ const path = require('path')
 const helmet = require('helmet')
 const compression = require('compression')
 const app = express()
-const port = 3000
 const api = require('./routes')
 const  bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const config = require('./config')
+const cluster = require('cluster')
 
-mongoose.connect(config.mongoUrl,{useNewUrlParser: true})
-.catch(error => {
-    console.log(error);
-});
-mongoose.connection.on('error', err => {
-    console.log(err);
-});
-app.use(helmet())
-app.use(compression())
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+if (cluster.isMaster) {
+    cluster.fork();
+    //if the worker dies, restart it.
+    cluster.on('exit', function(worker){
+        console.log('Worker ' + worker.id + ' died..');
+        cluster.fork();
+    });
+}else{
+    mongoose.connect(config.mongoUrl,{useNewUrlParser: true})
+    .catch(error => {
+        console.log(error);
+    });
+    mongoose.connection.on('error', err => {
+        console.log(err);
+    });
+    app.use(helmet())
+    app.use(compression())
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-app.use(bodyParser.json())
+    // parse application/json
+    app.use(bodyParser.json())
 
-// app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+    // app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 
-app.use('/api',api);
+    app.use('/api',api);
 
-// app.get('*', (req, res) => res.sendFile(path.join(__dirname+'/frontend/build/index.html')))
+    // app.get('*', (req, res) => res.sendFile(path.join(__dirname+'/frontend/build/index.html')))
 
-app.use(function (err, req, res, next) {
-    if (typeof (err) === 'string') {
-        // custom application error
-        return res.status(400).json({ message: err });
-    }
+    app.use(function (err, req, res, next) {
+        if (typeof (err) === 'string') {
+            // custom application error
+            return res.status(400).json({ message: err });
+        }
 
-    if (err.name === 'ValidationError') {
-        // mongoose validation error
-        return res.status(400).json({ message: err.message });
-    }
+        if (err.name === 'ValidationError') {
+            // mongoose validation error
+            return res.status(400).json({ message: err.message });
+        }
 
-    if (err.name === 'UnauthorizedError') {
-        // jwt authentication error
-        return res.status(401).json({ message: 'Invalid Token' });
-    }
+        if (err.name === 'UnauthorizedError') {
+            // jwt authentication error
+            return res.status(401).json({ message: 'Invalid Token' });
+        }
 
-    // default to 500 server error
-    return res.status(500).json({ message: err.message });
-})
+        // default to 500 server error
+        return res.status(500).json({ message: err.message });
+    })
 
-app.listen(config.port, () => console.log(`Example app listening on port ${config.port}!`))
+    app.listen(config.port, () => console.log(`Example app listening on port ${config.port}!`))
+}

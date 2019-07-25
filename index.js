@@ -31,12 +31,12 @@ if (cluster.isMaster) {
 
     // parse application/json
     app.use(bodyParser.json())
-
+    app.set('json spaces', 2);
     // app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 
     app.use('/api',api);
 
-    // app.get('*', (req, res) => res.sendFile(path.join(__dirname+'/frontend/build/index.html')))
+    app.get('*', (req, res) => res.status(404).json({status: false, message: 'Un-Specified URL'}))
 
     app.use(function (err, req, res, next) {
         if (typeof (err) === 'string') {

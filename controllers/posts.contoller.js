@@ -16,33 +16,13 @@ const PostContoller = {
         let newPost = new Post();
         newPost.title = req.body.title;
         newPost.body = req.body.body;
-        newPost.tags = req.body.tags;
+        newPost.tags = req.body.tags.split(',');
         newPost.author = req.decoded._id;
         newPost.generateSlug();
         newPost.save(function(err, post){
             if(err) return res.json({error: err.message, status: false})
             res.json({status: true, message: 'Post created successfully'})
         })
-    },
-    validate: function(method){
-        switch (method) {
-            case 'addPost': {
-                return [
-                    body('title', ['Title is required']).escape().trim().exists(),
-                    body('body').exists().escape().trim(),
-                    body('tags').toArray(),
-                ]
-            }
-            case 'signup': {
-                return [
-                    body('firstname', 'Invalid First Name').isString(),
-                    body('lastname', 'Invalid Last Name').isString(),
-                    body('email',  'A valid Email is required').exists().isEmail(),
-                    body('password').exists(),
-                    body('confirm-password', 'confirm password must have the same value as the password').exists().custom((value, { req }) => value === req.body.password),
-                ]
-            }
-        }
     }
 };
 

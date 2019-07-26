@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const slugify = require('slugify')
 const postSchema = new mongoose.Schema({
   title: String,
-  slug: String,
+  slug: { type: String, unique: true, required: true },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

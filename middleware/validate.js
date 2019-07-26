@@ -26,7 +26,7 @@ module.exports = {
     return [
       body('title', ['Title is required']).escape().trim().exists(),
       body('body').exists().escape().trim(),
-      body('tags').isString()
+      body('tags').escape().isString()
     ]
   }
 }

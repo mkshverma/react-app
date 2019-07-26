@@ -17,4 +17,4 @@ router.use(authorize)
 router.get('/users', UserController.getUsers)
 router.post('/posts', validator.addPost, PostController.addPost)
 
-module.exports = router;
+module.exports = router

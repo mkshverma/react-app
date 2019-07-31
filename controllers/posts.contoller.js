@@ -17,6 +17,7 @@ const PostContoller = {
     Post.find(conditions)
       .limit(limit)
       .skip(offset)
+      .populate('author')
       .exec(function (err, posts) {
         if (err) {
           return res.status(200).json({
@@ -86,6 +87,23 @@ const PostContoller = {
         res.status(200).json({
           status: true,
           post: post
+        })
+      })
+  },
+  // get single post via slug
+  getTags: function (req, res) {
+    Post.distinct('tags')
+      .exec(function (err, posts) {
+        if (err) {
+          return res.status(200).json({
+            status: false,
+            error: err,
+            message: 'Something went wrong'
+          })
+        }
+        res.status(200).json({
+          status: true,
+          tags: posts
         })
       })
   }

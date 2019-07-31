@@ -10,6 +10,7 @@ router.post('/login', validator.login(), DefaultController.login)
 router.post('/signup', validator.signup(), DefaultController.signup)
 router.get('/posts', PostController.getPosts)
 router.get('/post/:slug', PostController.getPostBySlug)
+router.get('/tags', PostController.getTags)
 
 // will check if jwt-token is authorized
 // routes after this middleware will require a valid Authorization Header

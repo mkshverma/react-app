@@ -15,20 +15,27 @@ const UserContoller = {
             message: 'Something went wrong'
           })
         }
-        if (!users.length) {
-          return res.status(200).json({
-            status: false,
-            message: 'No records found!'
-          })
-        }
         return res.status(200).json({
           status: true,
           users: users
         })
       })
   },
-  addUser: function (req, res) {
-    //
+  getUser: function (req, res) {
+    Users.findOne({ _id: req.decoded._id })
+      .exec(function (err, user) {
+        if (err) {
+          return res.status(200).json({
+            status: false,
+            error: err,
+            message: 'Something went wrong'
+          })
+        }
+        return res.status(200).json({
+          status: true,
+          user: user
+        })
+      })
   }
 }
 

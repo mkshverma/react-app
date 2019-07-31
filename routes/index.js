@@ -17,6 +17,7 @@ router.get('/tags', PostController.getTags)
 router.use(authorize)
 
 router.get('/users', UserController.getUsers)
+router.get('/me', UserController.getUser)
 router.post('/posts', validator.addPost(), PostController.addPost)
 
 module.exports = router

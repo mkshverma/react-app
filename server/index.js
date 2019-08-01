@@ -1,5 +1,6 @@
 const express = require('express')
 const helmet = require('helmet')
+const path = require('path')
 const compression = require('compression')
 const app = express()
 const api = require('./routes')
@@ -31,17 +32,18 @@ if (cluster.isMaster) {
   // parse application/json
   app.use(bodyParser.json())
   app.set('json spaces', 2)
-  // app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+  app.use('/', express.static(path.join(__dirname, '../dist/DemoApp')))
 
   app.use('/api', api)
 
-  app.get('*',
+  app.get('/api/*',
     (req, res) => res.status(404).json({
       status: false,
       message: 'Un-Specified URL'
     })
   )
 
+  app.use(    '*',    express.static('dist/DemoApp')  )
   app.use(function (err, req, res, next) {
     if (typeof (err) === 'string') {
       // custom application error

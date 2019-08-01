@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-success" routerLink="/admin/users/edit">Add User</button>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Users</div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let user of users;let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ user.display_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <a [routerLink]="['/admin/users/edit',user.user_id]">Edit </a>
+                            <a (click)="onDelete(user)">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

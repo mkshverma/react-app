@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">User</div>
+            </div>
+            <div class="panel-body">
+                <form class="form-vertical" [formGroup]="user" (ngSubmit)="onSave()">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="hidden" formControlName="user_id">
+                        <input type="text" class="form-control" id="name" formControlName="display_name">
+                        <div class="help-block" *ngIf="!this.user.get('display_name').valid && this.user.get('display_name').touched">
+                            <span *ngIf="this.user.get('display_name').errors['required']">This Field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email">
+                        <div class="help-block" *ngIf="!this.user.get('email').valid && this.user.get('email').touched">
+                            <span *ngIf="this.user.get('email').errors['required']">This Field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" class="form-control" id="password" formControlName="password">
+                        <div class="help-block" *ngIf="!this.user.get('password').valid && this.user.get('password').touched">
+                            <span *ngIf="this.user.get('password').errors['required'] ">
+                                This Field is Required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

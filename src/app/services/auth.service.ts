@@ -2,21 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+import JWT from 'jwt-decode';
 
 import { TokenStorage } from '../auth/token.storage';
 
 @Injectable()
 export class AuthService{
     private loggedIn = false;
-    private _currentUser;
-    public get currentUser() {
-        return this._currentUser;
-    }
-    public set currentUser(value) {
-        this._currentUser = value;
-    }
+    public isAdmin = false;
+    private _currentUser$: Subject<any>;
 
-    constructor(private http: HttpClient, private token: TokenStorage){}
+    constructor(private http: HttpClient, private token: TokenStorage, private jwt: JWT){}
     login(credentials: {email: string, password: string}): Observable<Boolean>{
         return Observable.create(observer => {
             return this.http.post('/api/login', credentials)
@@ -25,6 +21,9 @@ export class AuthService{
                     this.loggedIn = true;
                     observer.next(true);
                     this.token.saveToken(data['token']);
+                    let user = this.jwt(data['token']);
+                    this.isAdmin = user.isAdmin;
+                    this.settUser(data['token']);
                     observer.complete();
                 }else{
                     observer.next(false);
@@ -44,5 +43,14 @@ export class AuthService{
                 resolve(this.loggedIn);
             }
         );
+    }
+
+    getUser(): Observable<any> {
+        return this._currentUser$;
+    }
+
+    settUser(value) {
+        // let user = this.jwtDecode(value);
+        this._currentUser$.next(value);
     }
 }

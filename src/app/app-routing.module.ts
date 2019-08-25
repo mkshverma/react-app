@@ -4,6 +4,10 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: './frontend/frontend.module#FrontendModule'
+  },
+  {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
   },
@@ -11,12 +15,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
-  },
-  {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: 'auth'
-  },
+  }
 ];
 
 @NgModule({

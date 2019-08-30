@@ -10,7 +10,7 @@ import { TokenStorage } from '../auth/token.storage';
 export class AuthService{
     private loggedIn = false;
     public isAdmin = false;
-    private _currentUser$: Subject<any>;
+    private _currentUser$ = new Subject<any>();
 
     constructor(private http: HttpClient, private token: TokenStorage){}
     login(credentials: {email: string, password: string}): Observable<Boolean>{

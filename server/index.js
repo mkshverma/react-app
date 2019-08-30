@@ -17,7 +17,7 @@ if (cluster.isMaster) {
     cluster.fork()
   })
 } else {
-  mongoose.connect(config.mongoUrl, { useNewUrlParser: true })
+  mongoose.connect(config.mongoUrl, { useNewUrlParser: true, reconnectTries: Number.MAX_VALUE, reconnectInterval: 1000 })
     .catch((error) => {
       console.log(error)
     })

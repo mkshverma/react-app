@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { TokenStorage } from './auth/token.storage';
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { TokenStorage } from './auth/token.storage';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AuthGuard, TokenStorage],
+  providers: [AuthService, AuthGuard, TokenStorage, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,10 +15,10 @@
                     </tr>
                     <tr *ngFor="let user of users;let i=index">
                         <td>{{ i+1 }}</td>
-                        <td>{{ user.display_name }}</td>
+                        <td>{{ user.name.first }}</td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <a [routerLink]="['/admin/users/edit',user.user_id]">Edit </a>
+                            <a [routerLink]="['/admin/users/edit',user._id]">Edit </a>
                             <a (click)="onDelete(user)">Delete</a>
                         </td>
                     </tr>

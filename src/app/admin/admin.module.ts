@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { DropdownDirective } from '../directives/dropdown.directive';
 import { CollapseDirective } from '../directives/collapse.directive';
+import { httpInterceptorProviders } from '../http-interceptors';
 
 @NgModule({
   declarations: [

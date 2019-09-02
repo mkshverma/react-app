@@ -12,10 +12,23 @@ export class AuthService{
     public isAdmin = false;
     private _currentUser$ = new Subject<any>();
 
-    constructor(private http: HttpClient, private token: TokenStorage){}
+    constructor(private http: HttpClient, private token: TokenStorage){
+        this.setData();
+    }
+
+    setData(){
+        let token = this.token.getToken();
+        if(token){
+            this.loggedIn = true;
+            let user = jwt_decode(token);
+            this.isAdmin = user.isAdmin;
+            this.settUser(token);
+        }
+    }
+
     login(credentials: {email: string, password: string}): Observable<Boolean>{
         return Observable.create(observer => {
-            return this.http.post('/api/login', credentials)
+            return this.http.post('/login', credentials)
             .subscribe(data => {
                 if(data['status']){
                     this.loggedIn = true;
@@ -38,11 +51,7 @@ export class AuthService{
     }
 
     isAuthenticated(){
-        return new Promise(
-            (resolve, reject) => {
-                resolve(this.loggedIn);
-            }
-        );
+        return this.loggedIn;
     }
 
     getUser(): Observable<any> {

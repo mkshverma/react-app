@@ -9,6 +9,6 @@ import { Injectable } from '@angular/core';
 export class UserResolver implements Resolve<User>{
     constructor(private userService: UserService){}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> | Promise<User> | User{
-        return this.userService.getUser(+route.params['id']);
+        return this.userService.getUser(route.params['id']);
     }
 }

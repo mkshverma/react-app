@@ -16,8 +16,14 @@ router.get('/tags', PostController.getTags)
 // routes after this middleware will require a valid Authorization Header
 router.use(authorize)
 
+router.get('/is-authenticated', function(req,res){
+    res.json({auth:true});
+})
 router.get('/users', UserController.getUsers)
-router.get('/me', UserController.getUser)
+router.post('/user', UserController.createUser)
+router.get('/user/:id', UserController.getUser)
+router.put('/user/:id', UserController.updateUser)
+router.get('/me', UserController.getCurrentUser)
 router.post('/posts', validator.addPost(), PostController.addPost)
 
 module.exports = router

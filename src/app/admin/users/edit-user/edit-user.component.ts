@@ -20,15 +20,17 @@ export class EditUserComponent implements OnInit {
       user_id: new FormControl(0,Validators.required),
       display_name: new FormControl(null,Validators.required),
       email: new FormControl(null,Validators.required),
-      password: new FormControl(null)
+      password: new FormControl(null),
+      is_admin: new FormControl(null)
     });
     if(id){
       this.route.data.subscribe(
         (data: Data) => { 
           this.user.patchValue({
-            user_id: +data['user'].user_id,
-            display_name: data['user'].display_name,
-            email: data['user'].email
+            user_id: data['user'].user._id,
+            display_name: data['user'].user.name.first,
+            email: data['user'].user.email,
+            is_admin: data['user'].user.is_admin
         }); 
       }
       );

@@ -17,7 +17,7 @@ export class ListUsersComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(
       (data: Data) => { 
-        this.users = data['users']; 
+        this.users = data['users'].users; 
     });
   }
 

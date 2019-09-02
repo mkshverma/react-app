@@ -109,6 +109,21 @@ const UserContoller = {
         message: 'User created successfully'
       })
     })
+  },
+
+  deleteUser: function (req, res) {
+    Users.findByIdAndDelete(req.params.id,function (err) {
+      if (err) {
+        return res.status(200).json({
+          status: false,
+          message: err.message
+        })
+      }
+      return res.status(200).json({
+        status: true,
+        message: 'User deleted successfully'
+      })
+    })
   }
 }
 

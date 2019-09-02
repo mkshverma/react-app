@@ -23,6 +23,7 @@ router.get('/users', UserController.getUsers)
 router.post('/user', UserController.createUser)
 router.get('/user/:id', UserController.getUser)
 router.put('/user/:id', UserController.updateUser)
+router.delete('/user/:id', UserController.deleteUser)
 router.get('/me', UserController.getCurrentUser)
 router.post('/posts', validator.addPost(), PostController.addPost)
 

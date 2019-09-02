@@ -24,13 +24,12 @@ export class ListUsersComponent implements OnInit {
   onDelete(user: User){
     this.userService.deleteUser(user)
     .subscribe((resp) => {
-       console.log(resp); 
        this.refreshUsers();
       });
   }
   refreshUsers(){
     this.userService.getUsers( ).subscribe(
-      (users) => { this.users = users },
+      (users) => { this.users = users['users'] },
       (error: HttpErrorResponse) =>  { console.log(error.message); }
     );
   }

@@ -16,7 +16,15 @@ export class AdminComponent implements OnInit {
         new Menu('/admin/users','Users List'),
         new Menu('/admin/users/edit','Add User'),
       ]
-      )
+    ),
+    new Menu(
+      '/admin/posts',
+      'Posts',
+      [
+        new Menu('/admin/posts','Posts List'),
+        new Menu('/admin/posts/edit','Create Post'),
+      ]
+    )
   ];
   isSideNavOpen : boolean = true;
   constructor() { }

@@ -20,11 +20,13 @@ router.get('/is-authenticated', function(req,res){
     res.json({auth:true});
 })
 router.get('/users', UserController.getUsers)
-router.post('/user', UserController.createUser)
+router.post('/user', validator.createUser, UserController.createUser)
 router.get('/user/:id', UserController.getUser)
 router.put('/user/:id', UserController.updateUser)
 router.delete('/user/:id', UserController.deleteUser)
 router.get('/me', UserController.getCurrentUser)
 router.post('/posts', validator.addPost(), PostController.addPost)
+router.put('/posts/:id', validator.addPost(), PostController.updatePost)
+router.delete('/posts/:id', PostController.deletePost)
 
 module.exports = router

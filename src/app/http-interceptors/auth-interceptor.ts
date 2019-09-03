@@ -1,4 +1,4 @@
-import { TokenStorage } from '../auth/token.storage';
+import { TokenStorage } from '../features/auth/token.storage';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

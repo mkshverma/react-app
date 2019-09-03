@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FrontendComponent } from './frontend.component';
 import { PostComponent } from './post/post.component';
-import { PostsResolver } from '../resolvers/posts.resolver';
+import { PostsResolver } from '../../resolvers/posts.resolver';
 
 const routes: Routes = [
   {

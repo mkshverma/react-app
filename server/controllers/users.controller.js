@@ -100,7 +100,8 @@ const UserContoller = {
       if (err) {
         res.status(200).json({
           status: false,
-          message: err.message
+          message: err.message,
+          error: err
         })
         return
       }

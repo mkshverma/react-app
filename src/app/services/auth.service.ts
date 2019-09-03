@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 
-import { TokenStorage } from '../auth/token.storage';
+import { TokenStorage } from '../features/auth/token.storage';
 
 @Injectable()
 export class AuthService{

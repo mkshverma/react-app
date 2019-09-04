@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 
 import { TokenStorage } from '../features/auth/token.storage';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService{
@@ -12,7 +13,7 @@ export class AuthService{
     public isAdmin = false;
     private _currentUser$ = new Subject<any>();
 
-    constructor(private http: HttpClient, private token: TokenStorage){
+    constructor(private http: HttpClient, private token: TokenStorage, private router: Router){
         this.setData();
     }
 
@@ -22,7 +23,9 @@ export class AuthService{
             this.loggedIn = true;
             let user = jwt_decode(token);
             this.isAdmin = user.isAdmin;
-            this.settUser(token);
+            this.settUser(user);
+        }else{
+            this.router.navigateByUrl('/auth/login');
         }
     }
 
@@ -36,7 +39,7 @@ export class AuthService{
                     this.token.saveToken(data['token']);
                     let user = jwt_decode(data['token']);
                     this.isAdmin = user.isAdmin;
-                    this.settUser(data['token']);
+                    this.settUser(user);
                     observer.complete();
                 }else{
                     observer.next(false);
@@ -48,6 +51,8 @@ export class AuthService{
 
     logout(){
         this.loggedIn = false;
+        this.token.signOut();
+        this.router.navigateByUrl('/auth/login');
     }
 
     isAuthenticated(){

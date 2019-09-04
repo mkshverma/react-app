@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from '../../models/menu.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,6 +8,7 @@ import { Menu } from '../../models/menu.model';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  currentUser: any;
   menus: Menu[] = [
     new Menu('/admin','Dashboard'),
     new Menu(
@@ -27,7 +29,7 @@ export class AdminComponent implements OnInit {
     )
   ];
   isSideNavOpen : boolean = true;
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -36,4 +38,10 @@ export class AdminComponent implements OnInit {
   {
     this.isSideNavOpen = !this.isSideNavOpen;
   }
+
+  logout()
+  {
+    this.auth.logout();
+  }
+
 }

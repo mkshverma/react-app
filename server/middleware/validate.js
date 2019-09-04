@@ -28,5 +28,14 @@ module.exports = {
       body('body').exists().escape().trim(),
       body('tags').escape().isString()
     ]
-  }
+  },
+  createUser: function () {
+    return [
+      body('firstname', 'Invalid First Name').isString(),
+      body('lastname', 'Invalid Last Name').isString(),
+      body('email', 'A valid Email is required').exists().isEmail(),
+      body('password').exists(),
+      body('is_admin').isBoolean()
+    ]
+  },
 }

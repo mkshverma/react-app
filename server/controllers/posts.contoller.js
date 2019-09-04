@@ -66,6 +66,48 @@ const PostContoller = {
       })
     })
   },
+  // add a Post
+  updatePost: function (req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array(),
+        status: false
+      })
+    }
+    Post.findById(req.params.id, function(err, newPost){
+      newPost.title = req.body.title
+      newPost.body = req.body.body
+      newPost.tags = req.body.tags.split(',')
+      newPost.save(function (err, post) {
+        if (err) {
+          return res.json({
+            message: err.message,
+            status: false
+          })
+        }
+        res.json({
+          status: true,
+          message: 'Post updated successfully'
+        })
+      })
+    })
+  },
+  // add a Post
+  deletePost: function (req, res) {
+    Post.deleteOne({_id:req.params.id}, function(err, deletedPost){
+        if (err) {
+          return res.json({
+            message: err.message,
+            status: false
+          })
+        }
+        return res.json({
+          status: true,
+          message: 'Post deleted successfully'
+        })
+    })
+  },
   // get single post via slug
   getPostBySlug: function (req, res) {
     const slug = req.params.slug

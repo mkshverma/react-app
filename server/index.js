@@ -1,5 +1,6 @@
 const express = require('express')
 const helmet = require('helmet')
+const path = require('path')
 const compression = require('compression')
 const app = express()
 const api = require('./routes')
@@ -16,7 +17,7 @@ if (cluster.isMaster) {
     cluster.fork()
   })
 } else {
-  mongoose.connect(config.mongoUrl, { useNewUrlParser: true })
+  mongoose.connect(config.mongoUrl, { useNewUrlParser: true, reconnectTries: Number.MAX_VALUE, reconnectInterval: 1000 })
     .catch((error) => {
       console.log(error)
     })
@@ -35,13 +36,14 @@ if (cluster.isMaster) {
 
   app.use('/api', api)
 
-  app.get('*',
+  app.get('/api/*',
     (req, res) => res.status(404).json({
       status: false,
       message: 'Un-Specified URL'
     })
   )
 
+  //app.use(    '*',    express.static('dist/DemoApp')  )
   app.use(function (err, req, res, next) {
     if (typeof (err) === 'string') {
       // custom application error

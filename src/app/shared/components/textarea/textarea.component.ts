@@ -3,15 +3,15 @@ import { FormGroup } from "@angular/forms";
 import { FieldConfig } from "../../fields.interface";
 
 @Component({
-  selector: 'app-checkbox',
+  selector: 'app-textarea',
   template: `
-  <div class="checkbox" [formGroup]="group" >
-    <label><input [formControlName]="field.name" type="checkbox" [value]="field.value">{{field.label}}</label>
+  <div class="form-group" [formGroup]="group" >
+    <textarea [formControlName]="field.name" rows="3" class="form-control"></textarea>
   </div>
   `,
   styles: []
 })
-export class CheckboxComponent implements OnInit {
+export class TextAreaComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
 

@@ -50,6 +50,7 @@ const PostContoller = {
     newPost.title = req.body.title
     newPost.body = req.body.body
     newPost.tags = req.body.tags.split(',')
+    newPost.published = req.body.published? req.body.published: false
     newPost.author = req.decoded._id
     newPost.generateSlug()
     console.log(newPost)
@@ -79,6 +80,7 @@ const PostContoller = {
       newPost.title = req.body.title
       newPost.body = req.body.body
       newPost.tags = req.body.tags.split(',')
+      newPost.published = req.body.published? req.body.published: false
       newPost.save(function (err, post) {
         if (err) {
           return res.json({

@@ -19,6 +19,9 @@ export class FlashComponent implements OnInit {
       this.flashService.getMessages().subscribe(
           data => {
               this.messages.push(data);
+              setTimeout(() => {
+                this.messages.pop()
+              },5000);
           }
       )
   }

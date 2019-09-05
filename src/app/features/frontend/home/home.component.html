@@ -22,7 +22,7 @@
           <a class="post-category cat-4" href="#" *ngFor="let tag of post.tags">{{tag}}</a>
           <span class="post-date">{{post.date | date}}</span>
         </div>
-        <h3 class="post-title"><a href="#">{{post.title}}</a></h3>
+        <h3 class="post-title"><a [routerLink]="['post',post.slug]">{{post.title}}</a></h3>
       </div>
     </div>
   </div>

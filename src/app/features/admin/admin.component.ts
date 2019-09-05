@@ -32,6 +32,9 @@ export class AdminComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.getUser().subscribe(data => {
+      this.currentUser = data;
+    })
   }
 
   toggleSideNav()

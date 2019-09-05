@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 
 import { TokenStorage } from '../features/auth/token.storage';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService{
     private loggedIn = false;
     public isAdmin = false;
-    private _currentUser$ = new Subject<any>();
+    private _currentUser$ = new BehaviorSubject<any>(null);
 
     constructor(private http: HttpClient, private token: TokenStorage, private router: Router){
         this.setData();
@@ -60,7 +60,7 @@ export class AuthService{
     }
 
     getUser(): Observable<any> {
-        return this._currentUser$;
+        return this._currentUser$.asObservable();
     }
 
     settUser(value) {

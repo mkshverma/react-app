@@ -10,19 +10,23 @@
           <div class="panel-body">
               <table class="table table-responsive">
                   <tr>
-                      <th>ID</th>
+                      <th>#</th>
                       <th>Title</th>
                       <th>Author</th>
+                      <th>Status</th>
                       <th>Action</th>
+                      <th>Posted on</th>
                   </tr>
                   <tr *ngFor="let post of posts;let i=index">
                       <td>{{ i+1 }}</td>
                       <td>{{ post.title }}</td>
                       <td>{{ post.author ? post.author.name.first:'' }}</td>
+                      <td>{{ post.published ? 'Published':'Un Published' }}</td>
                       <td>
                           <a [routerLink]="['/admin/posts/edit',post.slug]">Edit </a>
                           <a (click)="onDelete(post._id)">Delete</a>
                       </td>
+                      <td>{{post.date | date}}</td>
                   </tr>
               </table>
           </div>

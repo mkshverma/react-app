@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
   salt: String,
   hash: String,
   is_admin: { type: Boolean, default: false },
-  registeredAt: { type: Date, default: Date.now }
+  registeredAt: { type: Date, default: Date.now },
+  following:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 })
 
 // method to set salt and hash the password for a user

@@ -5,6 +5,7 @@ import { PostService } from 'src/app/services/post.service';
 import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
 import { FieldConfig } from 'src/app/shared/fields.interface';
 import { Validators } from '@angular/forms';
+import { FlashService } from 'src/app/services/flash.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -28,9 +29,8 @@ export class EditPostComponent implements OnInit {
       ]
     },
     {
-      type: "input",
+      type: "textarea",
       label: "Content",
-      inputType: "text",
       name: "body",
       validations: [
         {
@@ -56,13 +56,18 @@ export class EditPostComponent implements OnInit {
         ]
       },
       {
+        type: "checkbox",
+        label: "Publish",
+        name: "published",
+        },
+      {
         type: "button",
         label: "Save"
       }
     ];
     @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
     updateSubscription: Subscription
-    constructor( private postService: PostService, private router : Router,private  route:ActivatedRoute) { }
+    constructor( private postService: PostService, private router : Router,private  route:ActivatedRoute, private flash: FlashService) { }
     
     ngOnInit() {
       let slug = this.route.snapshot.params['id'];
@@ -73,7 +78,8 @@ export class EditPostComponent implements OnInit {
             this.form.form.patchValue({
               title: data['post'].title,
               body: data['post'].body,
-              tags: data['post'].tags.join(',')
+              tags: data['post'].tags.join(','),
+              published: data['post'].published
             });
           }
         })
@@ -84,12 +90,12 @@ export class EditPostComponent implements OnInit {
       if(this.postId){
         this.updateSubscription = this.postService.updatePost(this.postId,this.form.value)
         .subscribe((data) => {
-          console.log(data);
+          this.flash.flash(data['message'], 'success');
         });
       }else{
         this.updateSubscription = this.postService.createPost(this.form.value)
         .subscribe((data) => {
-          console.log(data);
+          this.flash.flash(data['message'], 'success');
         });
       }
       this.router.navigate(['/admin/posts']);

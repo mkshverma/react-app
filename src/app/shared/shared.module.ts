@@ -8,6 +8,7 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
 import { SelectComponent } from './components/select/select.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TextAreaComponent } from './components/textarea/textarea.component';
 @NgModule({
   declarations: [
       InputComponent,
@@ -16,7 +17,8 @@ import { CommonModule } from '@angular/common';
       CheckboxComponent,
       DynamicFieldDirective,
       DynamicFormComponent,
-      SelectComponent
+      SelectComponent,
+      TextAreaComponent
   ],
   imports:[
     CommonModule,
@@ -30,7 +32,8 @@ import { CommonModule } from '@angular/common';
     CheckboxComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
-    SelectComponent
+    SelectComponent,
+    TextAreaComponent
   ],
   entryComponents:[
 
@@ -39,7 +42,8 @@ import { CommonModule } from '@angular/common';
     RadioComponent,
     CheckboxComponent,
     DynamicFormComponent,
-    SelectComponent
+    SelectComponent,
+    TextAreaComponent
   ]
 })
 export class SharedFormModule { }

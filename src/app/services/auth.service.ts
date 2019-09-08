@@ -24,8 +24,6 @@ export class AuthService{
             let user = jwt_decode(token);
             this.isAdmin = user.isAdmin;
             this.settUser(user);
-        }else{
-            this.router.navigateByUrl('/auth/login');
         }
     }
 
@@ -47,6 +45,10 @@ export class AuthService{
                 }
             });
         })
+    }
+
+    register(credentials){
+            return this.http.post('/signup', credentials)
     }
 
     logout(){

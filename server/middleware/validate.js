@@ -16,7 +16,7 @@ module.exports = {
       body('email', 'A valid Email is required').exists().isEmail(),
       body('password').exists(),
       body(
-        'confirm-password',
+        'confirmpassword',
         'confirm password must have the same value as the password'
       ).exists()
         .custom((value, { req }) => value === req.body.password)

@@ -24,6 +24,11 @@ export class AuthService{
             let user = jwt_decode(token);
             this.isAdmin = user.isAdmin;
             this.settUser(user);
+            if(this.isAdmin){
+                this.router.navigateByUrl('/admin');
+            }else{
+                this.router.navigateByUrl('/');
+            }
         }
     }
 

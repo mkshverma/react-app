@@ -12,6 +12,7 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { FlashService } from './services/flash.service';
 import { FlashComponent } from './shared/components/flash/flash.component';
 import { PostService } from './services/post.service';
+import { AdminGuard } from './guards/admin.gaurd';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { PostService } from './services/post.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AuthGuard, TokenStorage, httpInterceptorProviders, FlashService, PostService],
+  providers: [AuthService, AuthGuard, TokenStorage, httpInterceptorProviders, FlashService, PostService, AdminGuard],
   bootstrap: [AppComponent],
   entryComponents:[FlashComponent]
 })

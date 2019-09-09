@@ -19,6 +19,13 @@ router.use(authorize)
 router.get('/is-authenticated', function(req,res){
     res.json({auth:true});
 })
+
+router.use(function(req, res, next){
+    if(req.decoded.is_admin){
+        next();
+    }
+    res.json({auth: true, admin: false, message: 'Unauthorized'});
+});
 router.get('/users', UserController.getUsers)
 router.post('/user', validator.createUser, UserController.createUser)
 router.get('/user/:id', UserController.getUser)

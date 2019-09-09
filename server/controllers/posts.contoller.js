@@ -13,7 +13,6 @@ const PostContoller = {
     if (req.query.tag) {
       conditions.tags = req.query.tag
     }
-    console.log(conditions)
     Post.find(conditions)
       .limit(limit)
       .skip(offset)

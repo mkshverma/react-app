@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,11 +14,15 @@ import { FlashService } from './services/flash.service';
 import { FlashComponent } from './shared/components/flash/flash.component';
 import { PostService } from './services/post.service';
 import { AdminGuard } from './guards/admin.gaurd';
+import { LoaderComponent } from './shared/components/loader/loader.componen';
+import { LoaderService } from './services/loader.service';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FlashComponent
+    FlashComponent,
+    LoaderComponent
     // DropdownDirective
   ],
   imports: [
@@ -25,10 +30,20 @@ import { AdminGuard } from './guards/admin.gaurd';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [AuthService, AuthGuard, TokenStorage, httpInterceptorProviders, FlashService, PostService, AdminGuard],
+  providers: [
+    AuthService, 
+    AuthGuard, 
+    TokenStorage, 
+    httpInterceptorProviders, 
+    FlashService, 
+    PostService, 
+    AdminGuard,
+    LoaderService
+  ],
   bootstrap: [AppComponent],
-  entryComponents:[FlashComponent]
+  entryComponents:[FlashComponent,LoaderComponent]
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ import { FieldConfig } from 'src/app/shared/fields.interface';
 import { Validators } from '@angular/forms';
 import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
 import { FlashService } from 'src/app/services/flash.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
         name: "submit"
       },
     ];
-    constructor(private authService : AuthService, private router: Router, private fl: FlashService) { }
+    constructor(private authService : AuthService, private router: Router, private fl: FlashService, private loaderService: LoaderService) { }
     
     ngOnInit() {
     }
@@ -62,12 +63,14 @@ export class LoginComponent implements OnInit {
         email: this.form.form.get('email').value, 
         password: this.form.form.get('password').value
       };
+      this.loaderService.startLoading();
       this.authService.login(creds).subscribe((data) => {
         if(data){
           this.router.navigateByUrl('/admin');
         }else{
           this.fl.flash('Invalid username or password','danger');
         }
+        this.loaderService.stopLoading();
       });
     }
   }

@@ -22,7 +22,7 @@ export class AuthService{
         if(token){
             this.loggedIn = true;
             let user = jwt_decode(token);
-            this.isAdmin = user.isAdmin;
+            this.isAdmin = user.is_admin;
             this.settUser(user);
             if(this.isAdmin){
                 this.router.navigateByUrl('/admin');
@@ -41,7 +41,7 @@ export class AuthService{
                     observer.next(true);
                     this.token.saveToken(data['token']);
                     let user = jwt_decode(data['token']);
-                    this.isAdmin = user.isAdmin;
+                    this.isAdmin = user.is_admin;
                     this.settUser(user);
                     observer.complete();
                 }else{

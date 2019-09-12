@@ -12,9 +12,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown" appDropdown>
+                        <li class="dropdown" (click)="toggleState()">
                             <a class="dropdown-toggle">Hi, {{currentUser.name.first}}</a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" [@expandCollapse]="isCollapseOpen">
                                 <li>
                                     <a>Your Profile</a>
                                 </li>

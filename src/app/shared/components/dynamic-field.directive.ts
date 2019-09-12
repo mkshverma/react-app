@@ -10,6 +10,7 @@ import { SelectComponent } from "./select/select.component";
 import { RadioComponent } from "./radio/radio.component";
 import { CheckboxComponent } from "./checkbox/checkbox.component";
 import { TextAreaComponent } from './textarea/textarea.component';
+import { FileComponent } from './file/file.component';
 
   const componentMapper = {
     input: InputComponent,
@@ -17,7 +18,8 @@ import { TextAreaComponent } from './textarea/textarea.component';
     select: SelectComponent,
     radiobutton: RadioComponent,
     checkbox: CheckboxComponent,
-    textarea: TextAreaComponent
+    textarea: TextAreaComponent,
+    file: FileComponent
     };
 @Directive({
   selector: '[dynamicField]'

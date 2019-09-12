@@ -33,6 +33,8 @@ if (cluster.isMaster) {
   app.use(bodyParser.json())
   app.set('json spaces', 2)
   app.use('/', express.static(path.join(__dirname, '../dist/DemoApp')))
+  app.use('/temp_uploads', express.static(path.join(__dirname, '../temp_uploads')))
+  app.use('/uploads', express.static(path.join(__dirname, '../temp_uploads')))
 
   app.use('/api', api)
 

@@ -9,6 +9,7 @@ import { SelectComponent } from './components/select/select.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TextAreaComponent } from './components/textarea/textarea.component';
+import { FileComponent } from './components/file/file.component';
 @NgModule({
   declarations: [
       InputComponent,
@@ -18,7 +19,8 @@ import { TextAreaComponent } from './components/textarea/textarea.component';
       DynamicFieldDirective,
       DynamicFormComponent,
       SelectComponent,
-      TextAreaComponent
+      TextAreaComponent,
+      FileComponent
   ],
   imports:[
     CommonModule,
@@ -33,7 +35,8 @@ import { TextAreaComponent } from './components/textarea/textarea.component';
     DynamicFieldDirective,
     DynamicFormComponent,
     SelectComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    FileComponent
   ],
   entryComponents:[
 
@@ -43,7 +46,8 @@ import { TextAreaComponent } from './components/textarea/textarea.component';
     CheckboxComponent,
     DynamicFormComponent,
     SelectComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    FileComponent
   ]
 })
 export class SharedFormModule { }

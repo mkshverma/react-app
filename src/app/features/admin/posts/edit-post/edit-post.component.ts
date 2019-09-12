@@ -56,6 +56,18 @@ export class EditPostComponent implements OnInit {
         ]
       },
       {
+        type: "file",
+        label: "Post Image",
+        name: "image",
+        validations: [
+          {
+            name: "required",
+            validator: Validators.required,
+              message: "Post image is required"
+          }
+        ]
+      },
+      {
         type: "checkbox",
         label: "Publish",
         name: "published",
@@ -79,7 +91,8 @@ export class EditPostComponent implements OnInit {
               title: data['post'].title,
               body: data['post'].body,
               tags: data['post'].tags.join(','),
-              published: data['post'].published
+              published: data['post'].published,
+              image: data['post'].image
             });
           }
         })

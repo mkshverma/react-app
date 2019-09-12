@@ -72,6 +72,12 @@ const DefaultContoller = {
         message: 'success'
       })
     })
+  },
+  upload: function (req, res) {
+    if(req.file){
+      return res.json({file: req.file, status: true})
+    }
+    return res.json({status: false})
   }
 }
 

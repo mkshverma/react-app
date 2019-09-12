@@ -6,6 +6,8 @@ const PostController = require('../controllers/posts.contoller')
 const authorize = require('../middleware/authorize')
 const validator = require('../middleware/validate')
 
+const multer = require('multer')
+const upload = multer({dest: 'temp_uploads/', preservePath: true})
 router.post('/login', validator.login(), DefaultController.login)
 router.post('/signup', validator.signup(), DefaultController.signup)
 router.get('/posts', PostController.getPosts)
@@ -35,5 +37,6 @@ router.get('/me', UserController.getCurrentUser)
 router.post('/posts', validator.addPost(), PostController.addPost)
 router.put('/posts/:id', validator.addPost(), PostController.updatePost)
 router.delete('/posts/:id', PostController.deletePost)
+router.post('/upload', upload.single('image'), DefaultController.upload)
 
 module.exports = router

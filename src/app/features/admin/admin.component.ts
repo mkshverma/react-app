@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from '../../models/menu.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { animations } from 'src/app/shared/animations';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
+  animations: animations
 })
 export class AdminComponent implements OnInit {
   currentUser: any;
@@ -29,6 +31,7 @@ export class AdminComponent implements OnInit {
     )
   ];
   isSideNavOpen : boolean = true;
+  isCollapseOpen : string = 'closed';
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
@@ -40,6 +43,11 @@ export class AdminComponent implements OnInit {
   toggleSideNav()
   {
     this.isSideNavOpen = !this.isSideNavOpen;
+  }
+
+  toggleState()
+  {
+    this.isCollapseOpen = this.isCollapseOpen == 'closed'?'open':'closed';
   }
 
   logout()

@@ -48,6 +48,7 @@ const PostContoller = {
     const newPost = new Post()
     newPost.title = req.body.title
     newPost.body = req.body.body
+    newPost.image = req.body.image?req.body.image:''
     newPost.tags = req.body.tags.split(',')
     newPost.published = req.body.published? req.body.published: false
     newPost.author = req.decoded._id
@@ -78,6 +79,7 @@ const PostContoller = {
     Post.findById(req.params.id, function(err, newPost){
       newPost.title = req.body.title
       newPost.body = req.body.body
+      newPost.image = req.body.image?req.body.image:newPost.image
       newPost.tags = req.body.tags.split(',')
       newPost.published = req.body.published? req.body.published: false
       newPost.save(function (err, post) {

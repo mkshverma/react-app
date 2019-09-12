@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { AdminGuard } from './guards/admin.gaurd';
 import { LoaderComponent } from './shared/components/loader/loader.componen';
 import { LoaderService } from './services/loader.service';
 import { environment } from '../environments/environment';
+import { UploadService } from './services/upload.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -41,7 +44,8 @@ import { environment } from '../environments/environment';
     FlashService, 
     PostService, 
     AdminGuard,
-    LoaderService
+    LoaderService,
+    UploadService
   ],
   bootstrap: [AppComponent],
   entryComponents:[FlashComponent,LoaderComponent]

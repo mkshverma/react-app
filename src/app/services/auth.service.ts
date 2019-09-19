@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import * as jwt_decode from 'jwt-decode';
 
 import { TokenStorage } from '../features/auth/token.storage';
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ export class AuthService{
         let token = this.token.getToken();
         if(token){
             this.loggedIn = true;
-            let user = jwt_decode(token);
+            let user = JSON.parse(token);
             this.isAdmin = user.is_admin;
             this.settUser(user);
             if(this.isAdmin){
@@ -39,8 +38,8 @@ export class AuthService{
                 if(data['status']){
                     this.loggedIn = true;
                     observer.next(true);
-                    this.token.saveToken(data['token']);
-                    let user = jwt_decode(data['token']);
+                    this.token.saveToken(JSON.stringify(data['data']));
+                    let user = data['data'];
                     this.isAdmin = user.is_admin;
                     this.settUser(user);
                     observer.complete();
@@ -59,7 +58,9 @@ export class AuthService{
     logout(){
         this.loggedIn = false;
         this.token.signOut();
-        this.router.navigateByUrl('/auth/login');
+        this.http.get('/logout').subscribe(data => {
+            this.router.navigateByUrl('/auth/login');
+        });
     }
 
     isAuthenticated(){

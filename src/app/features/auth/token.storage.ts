@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'AuthToken';
+const TOKEN_KEY = 'AuthUser';
 
 export class TokenStorage {
 

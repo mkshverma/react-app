@@ -64,11 +64,15 @@ const DefaultContoller = {
       const token = jwt.sign(
         user.toObject(),
         config.jwtSecret,
-        { expiresIn: 604800 }
+        { expiresIn: 3600 }
       )
+      let userA = user.toObject();
+      delete userA.hash;
+      delete userA.salt;
+      res.cookie('AccessToken', token,  { httpOnly: true, expires: 0 });
       res.status(200).json({
         status: true,
-        token: token,
+        data: userA,
         message: 'success'
       })
     })
@@ -78,6 +82,10 @@ const DefaultContoller = {
       return res.json({file: req.file, status: true})
     }
     return res.json({status: false})
+  },
+  logout: function (req, res) {
+    res.cookie('AccessToken', '',  { httpOnly: true, expires: new Date(0) });
+    return res.json({})
   }
 }
 

@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 
 module.exports = function (req, res, next) {
-  let token = req.headers['authorization']
+  let token = req.cookies['AccessToken']
   if (!token) {
     return res.status(401).send({
       auth: false,
       message: 'No token provided.'
     })
   }
-  token = token.slice(7, token.length)
+  // token = token.slice(7, token.length)
   jwt.verify(
     token,
     config.jwtSecret,

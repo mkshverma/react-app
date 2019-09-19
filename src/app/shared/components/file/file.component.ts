@@ -28,6 +28,7 @@ export class FileComponent implements OnInit {
 
   ngOnInit() {
     this.group.controls[this.field.name].valueChanges.subscribe(v => {
+      if(v)
       this.imgSrc = '/uploads/'+v;
     })
   }

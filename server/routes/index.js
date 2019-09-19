@@ -21,7 +21,7 @@ router.use(authorize)
 router.get('/is-authenticated', function(req,res){
     return res.json({auth:true});
 })
-
+router.get('/logout', DefaultController.logout)
 router.use(function(req, res, next){
     if(!req.decoded.is_admin){
         return res.json({auth: true, admin: false, message: 'Unauthorized'});

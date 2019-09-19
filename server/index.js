@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./config')
 const cluster = require('cluster')
+const cookieParser = require('cookie-parser')
+const csrf = require('csurf')
 
 if (cluster.isMaster) {
   cluster.fork()
@@ -17,8 +19,11 @@ if (cluster.isMaster) {
     cluster.fork()
   })
 } else {
-  mongoose.connect(config.mongoUrl, { useNewUrlParser: true, reconnectTries: Number.MAX_VALUE, reconnectInterval: 1000 })
-    .catch((error) => {
+  mongoose.connect(config.mongoUrl, { 
+    useNewUrlParser: true, 
+    reconnectTries: Number.MAX_VALUE, 
+    reconnectInterval: 1000 
+  }).catch((error) => {
       console.log(error)
     })
   mongoose.connection.on('error', (err) => {
@@ -28,7 +33,8 @@ if (cluster.isMaster) {
   app.use(compression())
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }))
-
+  app.use(cookieParser())
+  // app.use(csrf({cookie: true}))
   // parse application/json
   app.use(bodyParser.json())
   app.set('json spaces', 2)

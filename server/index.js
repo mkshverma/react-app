@@ -32,7 +32,7 @@ if (cluster.isMaster) {
   // parse application/json
   app.use(bodyParser.json())
   app.set('json spaces', 2)
-  // app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+  app.use('/', express.static(path.join(__dirname, '../build')))
 
   app.use('/api', api)
 
@@ -43,7 +43,7 @@ if (cluster.isMaster) {
     })
   )
 
-  //app.use(    '*',    express.static('dist/DemoApp')  )
+  app.use(    '*',    express.static('../build')  )
   app.use(function (err, req, res, next) {
     if (typeof (err) === 'string') {
       // custom application error

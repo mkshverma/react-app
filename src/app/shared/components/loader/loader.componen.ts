@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LoaderService } from 'src/app/services/loader.service';
+import { LoaderService } from '../../../services/loader.service';
 import { Subscription } from 'rxjs';
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 

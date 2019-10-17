@@ -28,7 +28,7 @@ import { UploadService } from './services/upload.service';
     // DropdownDirective
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,

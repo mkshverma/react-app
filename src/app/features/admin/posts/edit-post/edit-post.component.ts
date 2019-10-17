@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute, Data } from '@angular/router';
-import { PostService } from 'src/app/services/post.service';
-import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
-import { FieldConfig } from 'src/app/shared/fields.interface';
+import { PostService } from '../../../../services/post.service';
+import { DynamicFormComponent } from '../../../../shared/components/dynamic-form/dynamic-form.component';
+import { FieldConfig } from '../../../../shared/fields.interface';
 import { Validators } from '@angular/forms';
-import { FlashService } from 'src/app/services/flash.service';
+import { FlashService } from '../../../../services/flash.service';
 
 @Component({
   selector: 'app-edit-post',

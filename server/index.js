@@ -8,7 +8,12 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./config')
 const cluster = require('cluster')
-
+const {enableProdMode} = require('@angular/core');
+// Express Engine
+const {ngExpressEngine} = require('@nguniversal/express-engine');
+// Import module map for lazy loading
+const {provideModuleMap} = require('@nguniversal/module-map-ngfactory-loader');
+require('zone.js/dist/zone-node');
 if (cluster.isMaster) {
   cluster.fork()
   // if the worker dies, restart it.
@@ -24,15 +29,27 @@ if (cluster.isMaster) {
   mongoose.connection.on('error', (err) => {
     console.log(err)
   })
+  console.log(process.cwd())
+  const DIST_FOLDER = path.join(process.cwd(), 'dist/browser');
+  enableProdMode();
+  const {AppServerModuleNgFactory, LAZY_MODULE_MAP} = require('../dist/server/main');
   app.use(helmet())
   app.use(compression())
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }))
 
+  app.engine('html', ngExpressEngine({
+    bootstrap: AppServerModuleNgFactory,
+    providers: [
+      provideModuleMap(LAZY_MODULE_MAP)
+    ]
+  }));
+  app.set('view engine', 'html');
+  app.set('views', DIST_FOLDER);
   // parse application/json
-  app.use(bodyParser.json())
-  app.set('json spaces', 2)
-  app.use('/', express.static(path.join(__dirname, '../dist/DemoApp')))
+  // app.use(bodyParser.json())
+  // app.set('json spaces', 2)
+  // app.use('/', express.static(path.join(__dirname, '../dist/DemoApp')))
   app.use('/temp_uploads', express.static(path.join(__dirname, '../temp_uploads')))
   app.use('/uploads', express.static(path.join(__dirname, '../temp_uploads')))
 
@@ -45,7 +62,11 @@ if (cluster.isMaster) {
     })
   )
 
-  app.use(    '*',    express.static('dist/DemoApp')  )
+  app.get('*.*', express.static(DIST_FOLDER, {
+    maxAge: '1y'
+  }));
+  app.use('*',  express.static(DIST_FOLDER));
+
   app.use(function (err, req, res, next) {
     if (typeof (err) === 'string') {
       // custom application error

@@ -5,7 +5,7 @@ import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
-import { SharedFormModule } from 'src/app/shared/shared.module';
+import { SharedFormModule } from '../../shared/shared.module';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({

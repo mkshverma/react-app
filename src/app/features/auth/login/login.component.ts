@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { FieldConfig } from 'src/app/shared/fields.interface';
+import { FieldConfig } from '../../../shared/fields.interface';
 import { Validators } from '@angular/forms';
-import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
-import { FlashService } from 'src/app/services/flash.service';
-import { LoaderService } from 'src/app/services/loader.service';
+import { DynamicFormComponent } from '../../../shared/components/dynamic-form/dynamic-form.component';
+import { FlashService } from '../../../services/flash.service';
+import { LoaderService } from '../../../services/loader.service';
 
 @Component({
   selector: 'app-login',

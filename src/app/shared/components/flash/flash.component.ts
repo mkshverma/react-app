@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FlashService } from 'src/app/services/flash.service';
+import { FlashService } from '../../../services/flash.service';
 @Component({
   selector: "app-flash",
   template: `

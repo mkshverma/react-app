@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PostsComponent } from './posts.component';
 import { ListPostComponent } from './list-post/list-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { PostsResolver } from 'src/app/resolvers/posts.resolver';
+import { PostsResolver } from '../../../resolvers/posts.resolver';
 
 const routes: Routes = [
   {

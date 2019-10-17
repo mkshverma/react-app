@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldConfig } from '../../fields.interface';
 import { FormGroup } from '@angular/forms';
-import { UploadService } from 'src/app/services/upload.service';
+import { UploadService } from '../../../services/upload.service';
 
 @Component({
   selector: 'app-file',

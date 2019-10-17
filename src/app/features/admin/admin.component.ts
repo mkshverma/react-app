@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from '../../models/menu.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { animations } from 'src/app/shared/animations';
+import { AuthService } from '../../services/auth.service';
+import { animations } from '../../shared/animations';
 
 @Component({
   selector: 'app-admin',

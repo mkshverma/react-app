@@ -5,8 +5,8 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts.component';
 import { ListPostComponent } from './list-post/list-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { PostsResolver } from 'src/app/resolvers/posts.resolver';
-import { SharedFormModule } from 'src/app/shared/shared.module';
+import { PostsResolver } from '../../../resolvers/posts.resolver';
+import { SharedFormModule } from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [PostsComponent, ListPostComponent, EditPostComponent],
